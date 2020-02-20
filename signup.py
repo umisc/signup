@@ -106,12 +106,12 @@ while True:
 
     # details if student
     course = 'NA'
-    localp = 'NA'
+    intlp = 'NA'
     gradp = 'NA'
     
     if snum:
         course = ask("What course are you taking this year?: ")
-        localp = p("Are you an international student? [y/N]: ", 'No')
+        intlp = p("Are you an international student? [y/N]: ", 'No')
         gradp = p("Are you a graduate student? [y/N]: ", 'No')
         
     else:
@@ -147,7 +147,7 @@ while True:
     time = f"{now.day}/{now.month}/{now.year} {now.hour}:{now.minute}:{now.second}"
     with open('registrations.csv', 'a+', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow([time, email, fname, lname, snum, course, localp, gradp, legalp, coolp, pro, 'No', expect])
+        writer.writerow([time, email, fname, lname, snum, course, intlp, gradp, legalp, coolp, pro, 'No', expect])
         
     printgreen(f'Thank you {fname}! Welcome to MISC :)')
     sleep(3)
