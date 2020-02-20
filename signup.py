@@ -70,13 +70,8 @@ while True:
     check = True
     while check:
         name = ask("Full Name: ").split()
-        alpha = True
-        for part in name:
-            if not part.isalpha():
-                alpha = False
-        if not alpha:
+        if any([not re.match('^[a-zA-Z\-]*$', part) for part in name]):
             warn("That doesn't look like a name, please try again.")
-
         else:
             if len(name) < 2:
                 warn("Please enter your full name (first name and surname).")
