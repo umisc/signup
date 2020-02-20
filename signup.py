@@ -31,7 +31,6 @@ logo ='''                       _,-'``'-,_
               |_|   |_|_____|_____/ \_____|
 
 ---------------------------------------------------------'''.split('\n')
-email_pattern = re.compile("^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
 
 # functions
 
@@ -42,20 +41,6 @@ def ask(question):
 def warn(warning):
     print(f"\033[31m{warning}\033[0m")
 
-def p(question):
-    yes = ['y', 'yes']
-    no = ['n', 'no']
-    while True:
-        answer = ask(question)
-        if (answer.lower() in (yes+no)) or not answer:
-            if answer.lower() in yes or not answer:
-                return 'Yes'
-            else:
-                return 'No'
-        else:
-            print(answer)
-            warn("I didn't understand that, please type 'y' or 'n'")
-
 def printgreen(text):
     print('\033[32m'+text+'\033[0m')
 
@@ -64,6 +49,18 @@ def printlogo():
     for line in logo:
         print('\033[32m'+line+'\033[0m')
     
+def p(question, default='Yes'):
+    while True:
+        answer = ask(question)
+        if not answer:
+            return default
+        if answer.lower() in ['y', 'yes']:
+            return 'Yes'
+        if answer.lower() in ['n', 'no']:
+            return 'No'
+        print(answer)
+        warn("I didn't understand that, please type 'y' or 'n'")
+
 # ask shit (main)
 
 while True:
@@ -99,6 +96,7 @@ while True:
 
     # email sanitisation
     invalid_email = True
+    email_pattern = re.compile("^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$")
     while invalid_email:
         email = ask("Email Address: ")
         if email_pattern.match(email):
@@ -113,15 +111,15 @@ while True:
     
     if snum:
         course = ask("What course are you taking this year?: ")
-        localp = p("Are you an international student? [Y/n]: ")
-        gradp = p("Are you a graduate student? [Y/n]: ")
+        localp = p("Are you an international student? [y/N]: ", 'No')
+        gradp = p("Are you a graduate student? [y/N]: ", 'No')
         
     else:
         snum = 'NA'
 
     # other details
-    legalp = p("Are you over 18 years of age? [Y/n]: ")
-    coolp = p("Have you used any Linux-based OS? [Y/n]: ")
+    legalp = p("Are you over 18 years of age? [Y/n]: ", 'Yes')
+    coolp = p("Have you used any Linux-based OS? [Y/n]: ", 'Yes')
 
     # pro-ness
     check = True
