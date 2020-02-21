@@ -35,7 +35,7 @@ logo ='''                       _,-'``'-,_
 # functions
 
 def ask(question):
-    answer = input('\033[32m'+question+'\033[0m')
+    answer = input('\033[32;1m'+question+'\033[0m')
     return answer
 
 def warn(warning):
@@ -47,7 +47,7 @@ def printgreen(text):
 def printlogo():
     system('clear')
     for line in logo:
-        print('\033[32m'+line+'\033[0m')
+        print('\033[32;1m'+line+'\033[0m')
     
 def p(question, default='Yes'):
     while True:
